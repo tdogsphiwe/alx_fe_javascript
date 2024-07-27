@@ -1,4 +1,4 @@
-let quotes = [
+let quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { text: "The best way to get started is to quit talking and begin doing.", category: "Motivation" },
     { text: "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.", category: "Optimism" },
     { text: "Don't let yesterday take up too much of today.", category: "Inspirational" },
