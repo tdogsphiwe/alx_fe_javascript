@@ -17,6 +17,9 @@ let quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { text: "One of the lessons that I grew up with was to always stay true to yourself and never let what somebody else says distract you from your goals.", category: "Authenticity" }
   ];
 
+function saveQuotes() {
+    localStorage.setItem('quotes', JSON.stringify(quotes));
+}
 
  // Function to show a random quote
 function showRandomQuote() {
@@ -40,10 +43,36 @@ function showRandomQuote() {
       alert('Please enter both a quote and a category.');
     }
   }
-  
+
+  // Function to export quotes as a JSON file
+function exportQuotes() {
+  const dataStr = JSON.stringify(quotes, null, 2); 
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob); 
+
+  const a = document.createElement('a'); 
+  a.href = url; 
+  a.download = 'quotes.json'; 
+  a.click(); 
+  URL.revokeObjectURL(url); 
+}
+
+// Function to import quotes from a JSON file
+function importFromJsonFile(event) {
+  const fileReader = new FileReader(); 
+  fileReader.onload = function(event) {
+      const importedQuotes = JSON.parse(event.target.result); 
+      quotes.push(...importedQuotes); 
+      saveQuotes(); 
+      alert('Quotes imported successfully!'); 
+  };
+  fileReader.readAsText(event.target.files[0]); 
+}
   
   document.getElementById('newQuote').addEventListener('click', showRandomQuote);
   document.getElementById('addQuote').addEventListener('click', addQuote);
+  // document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
+  // document.getElementById('importFile').addEventListener('change', importFromJsonFile);
   
   
   showRandomQuote();
