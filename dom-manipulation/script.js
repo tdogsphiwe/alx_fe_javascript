@@ -28,9 +28,40 @@ function showRandomQuote() {
     const quoteDisplay = document.getElementById('quoteDisplay');
     quoteDisplay.innerHTML = `${quote.text} - ${quote.category}`;
   }
+
+  function createAddQuoteForm() {
+//     const formContainer = document.getElementById('formContainer');
+//     formContainer.innerHTML = `
+//         <form id="addQuoteForm">
+//             <label for="newQuoteText">Quote:</label>
+//             <input type="text" id="newQuoteText" required>
+//             <label for="newQuoteCategory">Category:</label>
+//             <input type="text" id="newQuoteCategory" required>
+//             <button type="submit">Add Quote</button>
+//         </form>
+//     `;
+
+//     document.getElementById('addQuoteForm').addEventListener('submit', function(event) {
+//         event.preventDefault();
+//         const newQuoteText = document.getElementById('newQuoteText').value;
+//         const newQuoteCategory = document.getElementById('newQuoteCategory').value;
+
+//         if (newQuoteText && newQuoteCategory) {
+//             quotes.push({ text: newQuoteText, category: newQuoteCategory });
+//             document.getElementById('newQuoteText').value = '';
+//             document.getElementById('newQuoteCategory').value = '';
+//             saveQuotes();
+//             alert('Quote added successfully!');
+//             formContainer.innerHTML = ''; 
+//         } else {
+//             alert('Please enter both a quote and a category.');
+//         }
+//     });
+}
+
   
   // Function to add a new quote
-  function addQuote() {
+function  addQuote() {
     const newQuoteText = document.getElementById('newQuoteText').value;
     const newQuoteCategory = document.getElementById('newQuoteCategory').value;
   
@@ -38,6 +69,7 @@ function showRandomQuote() {
       quotes.push({ text: newQuoteText, category: newQuoteCategory });
       document.getElementById('newQuoteText').value = '';
       document.getElementById('newQuoteCategory').value = '';
+      saveQuotes();
       alert('Quote added successfully!');
     } else {
       alert('Please enter both a quote and a category.');
@@ -69,10 +101,43 @@ function importFromJsonFile(event) {
   fileReader.readAsText(event.target.files[0]); 
 }
   
-  document.getElementById('newQuote').addEventListener('click', showRandomQuote);
-  document.getElementById('addQuote').addEventListener('click', addQuote);
+  
+//   function populateCategories() {
+//     const categories = [...new Set(quotes.map(quote => quote.category))];
+//     const categoryFilter = document.getElementById('categoryFilter');
+//     categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+//     categories.forEach(category => {
+//         const option = document.createElement('option');
+//         option.value = category;
+//         option.textContent = category;
+//         categoryFilter.appendChild(option);
+//     });
+
+
+// }
+
+// function filterQuotes() {
+//   const selectedCategory = document.getElementById('categoryFilter').value;
+//   const filteredQuotes = selectedCategory === 'all' ? quotes : quotes.filter(quote => quote.category === selectedCategory);
+//   const quoteDisplay = document.getElementById('quoteDisplay');
+//   if (filteredQuotes.length > 0) {
+//       const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+//       const quote = filteredQuotes[randomIndex];
+//       quoteDisplay.innerHTML = `${quote.text} - ${quote.category}`;
+//   } else {
+//       quoteDisplay.innerHTML = 'No quotes available for this category.';
+//   }
+//   localStorage.setItem('selectedCategory', selectedCategory);
+// }
+
+
+
+
+document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+// document.getElementById('addQuoteButton').addEventListener('click', createAddQuoteForm);
+document.getElementById('addQuote').addEventListener('click', addQuote);
   // document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
   // document.getElementById('importFile').addEventListener('change', importFromJsonFile);
-  
+
   
   showRandomQuote();
